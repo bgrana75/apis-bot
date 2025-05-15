@@ -101,7 +101,7 @@ async function getSelfVotesByAuthor(author: string, type: 'post' | 'comment', st
         author,
         startPermlink,
         '',
-        100
+        10
       ]); // Fetch the latest 100 posts by the author
     } else {
       items = await hiveClient.database.call('get_discussions_by_comments', [
