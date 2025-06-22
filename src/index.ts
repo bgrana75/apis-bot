@@ -1,6 +1,7 @@
 import { config } from 'dotenv';
 import { Client as DiscordClient, GatewayIntentBits} from 'discord.js';
 import { Client as HiveClient } from '@hiveio/dhive';
+import { getUserCsiScore } from './util/csi';
 
 config(); // Load .env variables
 
@@ -163,6 +164,7 @@ discordClient.on('messageCreate', async (message) => {
       //const comments = await getCommentsByAuthor(user);
       const selfVotes = await getSelfVotesByAuthor(user, 'post');
       const selfComments = await getSelfVotesByAuthor(user, 'comment'); // Fetch self-votes on comments as well
+      const csi = await getUserCsiScore(user);
       if (userInfo) {
         const percentageDelegated = (userInfo.delegatedVestingShares / userInfo.vestingShares) * 100;
 
@@ -195,6 +197,8 @@ discordClient.on('messageCreate', async (message) => {
             { name: '**Comments 30 days**', value: `${selfComments.totalItems}`, inline: true },
             { name: '**reward.app**', value: `${selfComments.totalRewardApp}`, inline:  true },
             { name: '**Self Votes**', value: `${selfComments.totalSelfVotes}`, inline: true },
+            { name: "", value: ``, inline:  false },
+            { name: '**CSI Score 30 days**', value: `${csi?.csi}`, inline: true },
           ],
           footer: { text: `Requested by ${message.author.displayName}`, icon_url: message.author.displayAvatarURL() }
         };
