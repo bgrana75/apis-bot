@@ -198,7 +198,7 @@ discordClient.on('messageCreate', async (message) => {
             { name: '**reward.app**', value: `${selfComments.totalRewardApp}`, inline:  true },
             { name: '**Self Votes**', value: `${selfComments.totalSelfVotes}`, inline: true },
             { name: "", value: ``, inline:  false },
-            { name: '**CSI Score 30 days**', value: `${csi?.csi}`, inline: true },
+            { name: '**CSI Score 30 days**', value: `${csi?.csi.toFixed(3)}`, inline: true },
           ],
           footer: { text: `Requested by ${message.author.displayName}`, icon_url: message.author.displayAvatarURL() }
         };
